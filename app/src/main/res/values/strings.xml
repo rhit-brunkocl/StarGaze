@@ -10,4 +10,9 @@
     <string name="stars">Stars</string>
     <string name="biography">Biography:</string>
     <string name="edit_info">Edit Info</string>
+    <string name="search">Search</string>
+    <string name="wds_name">WDS Name:</string>
+    <string name="minimum_delta_magnitude">Minimum Delta Magnitude:</string>
+    <string name="maximum_delta_magnitude">Maximum Delta Magnitude:</string>
+    <string name="open">Open</string>
 </resources>

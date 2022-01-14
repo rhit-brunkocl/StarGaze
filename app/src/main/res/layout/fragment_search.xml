@@ -1,23 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".ui.Search.SearchFragment">
+    android:theme="@style/Theme.StarGaze"
+    android:background="@color/gray"
+    tools:context=".ui.Search.SearchFragment"
+    android:padding="20dp">
+        <TextView
+            android:id="@+id/WDS_name_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/wds_name" />
+        <EditText
+            android:id="@+id/WDS_name_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_below="@id/WDS_name_text"
+            />
+        <TextView
+            android:id="@+id/min_RA_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Minimum RA: "
+            android:layout_below="@id/WDS_name_edittext"
+            />
+        <EditText
+            android:id="@+id/min_RA_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_below="@id/min_RA_text"
+            />
+        <TextView
+            android:id="@+id/max_RA_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Maximum RA: "
+            android:layout_below="@id/min_RA_edittext"
+            />
+        <EditText
+            android:id="@+id/max_RA_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_below="@id/max_RA_text"
+            />
 
-    <TextView
-        android:id="@+id/text_dashboard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/min_Dec_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Minimum Dec: "
+            android:layout_below="@id/max_RA_edittext"
+            />
+        <EditText
+            android:id="@+id/min_Dec_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_below="@id/min_Dec_text"
+            />
+        <TextView
+            android:id="@+id/max_Dec_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Maximum Dec: "
+            android:layout_below="@id/min_Dec_edittext"
+            />
+        <EditText
+            android:id="@+id/max_Dec_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_below="@id/max_Dec_text"
+            />
+
+        <TextView
+            android:id="@+id/min_deltasep_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Minimum Delta Separation: "
+            android:layout_below="@id/max_Dec_edittext"
+            />
+        <EditText
+            android:id="@+id/min_deltasep_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:background="@color/white"
+            android:layout_below="@id/min_deltasep_text"
+            />
+        <TextView
+            android:id="@+id/max_deltasep_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Maximum Delta Separation: "
+            android:layout_below="@id/min_deltasep_edittext"
+            />
+        <EditText
+            android:id="@+id/max_deltasep_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:inputType="numberDecimal"
+            android:layout_below="@id/max_deltasep_text"
+            />
+
+
+        <TextView
+            android:id="@+id/min_deltamag_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/minimum_delta_magnitude"
+            android:layout_below="@id/max_deltasep_edittext"
+            />
+        <EditText
+            android:id="@+id/min_deltamag_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:inputType="numberDecimal"
+            android:layout_below="@id/min_deltamag_text"
+            />
+        <TextView
+            android:id="@+id/max_deltamag_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/maximum_delta_magnitude"
+            android:layout_below="@id/min_deltamag_edittext"
+            />
+        <EditText
+            android:id="@+id/max_deltamag_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_below="@id/max_deltamag_text"
+            />
+
+
+        <TextView
+            android:id="@+id/min_obs_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Minimum Number of Observations: "
+            android:layout_below="@id/max_deltamag_edittext"
+            />
+        <EditText
+            android:id="@+id/min_obs_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_below="@id/min_obs_text"
+            />
+
+        <TextView
+            android:id="@+id/max_obs_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Maximum Number of Observations: "
+            android:layout_below="@id/min_obs_edittext"
+            />
+        <EditText
+            android:id="@+id/max_obs_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_below="@id/max_obs_text"
+            />
+        <TextView
+            android:id="@+id/min_sep_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Minimum Separation: "
+            android:layout_below="@id/max_obs_edittext"
+            />
+        <EditText
+            android:id="@+id/min_sep_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_below="@id/min_sep_text"
+            />
+
+        <TextView
+            android:id="@+id/max_sep_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Maximum Separation: "
+            android:layout_below="@id/min_sep_edittext"
+            />
+        <EditText
+            android:id="@+id/max_sep_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_below="@id/max_sep_text"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/max_sep_edittext"
+            android:layout_marginTop="10dp"
+            android:background="@color/blue"
+            android:text="@string/search"
+            />
+
+</RelativeLayout>
+</ScrollView>
