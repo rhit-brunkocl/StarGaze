@@ -203,11 +203,39 @@
             android:background="@color/white"
             android:layout_below="@id/max_sep_text"
             />
+        <TextView
+            android:id="@+id/min_mag_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Minimum magnitude: "
+            android:layout_below="@id/max_sep_edittext"
+            />
+        <EditText
+            android:id="@+id/min_mag_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_below="@id/min_mag_text"
+            />
+        <TextView
+            android:id="@+id/max_mag_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Maximum magnitude: "
+            android:layout_below="@id/min_mag_edittext"
+            />
+        <EditText
+            android:id="@+id/max_mag_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_below="@id/max_mag_text"
+            />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/max_sep_edittext"
+            android:layout_below="@id/max_mag_edittext"
             android:layout_marginTop="10dp"
             android:background="@color/blue"
             android:text="@string/search"

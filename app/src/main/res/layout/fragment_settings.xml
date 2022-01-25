@@ -1,23 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.Settings.SettingsFragment"
-    android:background="@color/white">
+    android:theme="@style/Theme.StarGaze">
 
     <TextView
-        android:id="@+id/text_dashboard"
-        android:layout_width="match_parent"
+        android:id="@+id/settings_label"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_centerHorizontal="true"
+        android:textSize="40sp"
+        android:text="Settings"/>
+    <TextView
+        android:id="@+id/research_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Research Settings     "
+        android:paddingLeft="20dp"
+        android:textStyle="bold"
+        android:layout_below="@id/settings_label"
+        android:textAllCaps="true"
+        android:background="@color/blue"
+        />
+    <TextView
+        android:id="@+id/constellation_label"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Show constellation"
+        android:layout_below="@id/general_label"
+        android:paddingLeft="20dp"
+        />
+    <Switch
+        android:id="@+id/constellation_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@id/general_label"
+        android:layout_alignParentRight="true"
+        android:paddingRight="20dp" />
+    <TextView
+        android:id="@+id/location_label"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Use locations"
+        android:layout_below="@id/constellation_label"
+        android:paddingLeft="20dp"
+        />
+
+    <Switch
+        android:id="@+id/location_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@id/constellation_setting"
+        android:layout_alignParentRight="true"
+        android:paddingRight="20dp"
+        />
+    <TextView
+        android:id="@+id/camera_label"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Use camera"
+        android:layout_below="@id/location_label"
+        android:paddingLeft="20dp"
+        />
+
+    <Switch
+        android:id="@+id/camera_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@id/location_setting"
+        android:layout_alignParentRight="true"
+        android:paddingRight="20dp" />
+    <TextView
+        android:id="@+id/save_label"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Favorite viewed stars"
+        android:layout_below="@id/camera_label"
+        android:paddingLeft="20dp"
+        />
+    <Switch
+        android:id="@+id/save_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@id/camera_setting"
+        android:layout_alignParentRight="true"
+        android:paddingRight="20dp"
+        />
+
+    <TextView
+        android:id="@+id/general_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/wds_label"
+        android:background="@color/blue"
+        android:paddingLeft="20dp"
+        android:text="General Settings     "
+        android:textAllCaps="true"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/parallax_label"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Show parallax"
+        android:layout_below="@id/research_label"
+        android:paddingLeft="20dp"
+        />
+    <Switch
+        android:id="@+id/parallax_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@id/research_label"
+        android:layout_alignParentRight="true"
+        android:paddingRight="20dp" />
+    <TextView
+        android:id="@+id/harshaw_label"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Show Harshaw Statistic"
+        android:layout_below="@id/parallax_label"
+        android:paddingLeft="20dp"
+        />
+
+    <Switch
+        android:id="@+id/harshaw_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@id/parallax_setting"
+        android:layout_alignParentRight="true"
+        android:paddingRight="20dp"
+        />
+    <TextView
+        android:id="@+id/GAIA_label"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Show GAIA data"
+        android:layout_below="@id/harshaw_label"
+        android:paddingLeft="20dp"
+        />
+
+    <Switch
+        android:id="@+id/gaia_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@id/harshaw_setting"
+        android:layout_alignParentRight="true"
+        android:paddingRight="20dp" />
+    <TextView
+        android:id="@+id/wds_label"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Show WDS data"
+        android:layout_below="@id/GAIA_label"
+        android:paddingLeft="20dp"
+        />
+    <Switch
+        android:id="@+id/wds_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@id/gaia_setting"
+        android:layout_alignParentRight="true"
+        android:paddingRight="20dp"
+        />
+    <TextView
+        android:id="@+id/smart_search_label"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Limit search to currently visible stars"
+        android:layout_below="@id/save_label"
+        android:paddingLeft="20dp"
+        />
+    <Switch
+        android:id="@+id/smart_search_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@id/save_setting"
+        android:layout_alignParentRight="true"
+        android:paddingRight="20dp"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="LOGOUT"
+        android:backgroundTint="@color/blue"
+        />
+</RelativeLayout>

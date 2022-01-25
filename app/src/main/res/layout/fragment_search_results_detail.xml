@@ -4,7 +4,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.Search.SearchResultsDetailFragment"
-    android:padding="20dp">
-
-
+    android:padding="20dp"
+    android:theme="@style/Theme.StarGaze">
+    <ImageView
+        android:id="@+id/left_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_baseline_arrow_left_24"
+        android:background="@color/blue"
+        />
+    <ImageView
+        android:id="@+id/right_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_baseline_arrow_right_24"
+        android:background="@color/blue"
+        />
+    <TextView
+        android:id="@+id/star_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textSize="40sp"
+        android:text = "Star Name"
+        />
+    <TextView
+        android:id="@+id/star_detail_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/star_name_text"
+        android:textSize="20sp"
+        android:text = "Star Details"
+        />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fav_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/ic_baseline_star_24"
+        />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/camera_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_above="@id/fav_fab"
+        android:src="@drawable/ic_baseline_camera_alt_24"
+        />
 </RelativeLayout>

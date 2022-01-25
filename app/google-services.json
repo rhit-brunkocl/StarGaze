@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "175660725036",
+    "project_id": "stargaze-app",
+    "storage_bucket": "stargaze-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175660725036:android:b94d8a543a206aec59b289",
+        "android_client_info": {
+          "package_name": "com.rosehulman.stargazeapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "175660725036-chc8ja4p0547f1van27cacdbpkrhdhv5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJsZfYq5y4kIQw6QZa96I_xu2PZdin4io"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "175660725036-chc8ja4p0547f1van27cacdbpkrhdhv5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
