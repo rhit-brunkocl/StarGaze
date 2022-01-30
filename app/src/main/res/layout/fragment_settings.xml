@@ -29,26 +29,11 @@
         android:background="@color/blue"
         />
     <TextView
-        android:id="@+id/constellation_label"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="Show constellation"
-        android:layout_below="@id/general_label"
-        android:paddingLeft="20dp"
-        />
-    <Switch
-        android:id="@+id/constellation_setting"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_below="@id/general_label"
-        android:layout_alignParentRight="true"
-        android:paddingRight="20dp" />
-    <TextView
         android:id="@+id/location_label"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:text="Use locations"
-        android:layout_below="@id/constellation_label"
+        android:layout_below="@id/general_label"
         android:paddingLeft="20dp"
         />
 
@@ -56,7 +41,7 @@
         android:id="@+id/location_setting"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_below="@id/constellation_setting"
+        android:layout_below="@id/general_label"
         android:layout_alignParentRight="true"
         android:paddingRight="20dp"
         />

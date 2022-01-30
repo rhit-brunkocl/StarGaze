@@ -18,10 +18,28 @@
         tools:layout="@layout/fragment_search" />
 
     <fragment
+        android:id="@+id/navigation_search_results"
+        android:name="edu.rosehulman.stargaze.ui.Search.SearchResultsFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_search_results" />
+
+    <fragment
+        android:id="@+id/navigation_search_results_detail"
+        android:name="edu.rosehulman.stargaze.ui.Search.SearchResultsDetailFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_search_results_detail" />
+
+    <fragment
         android:id="@+id/navigation_favorites"
         android:name="edu.rosehulman.stargaze.ui.Favorites.FavoritesFragment"
         android:label="@string/title_favorites"
         tools:layout="@layout/fragment_favorites" />
+
+    <fragment
+        android:id="@+id/navigation_favorites_detail"
+        android:name="edu.rosehulman.stargaze.ui.Favorites.FavoritesDetailFragment"
+        android:label="@string/title_favorites"
+        tools:layout="@layout/fragment_favorites_detail" />
 
     <fragment
         android:id="@+id/navigation_camera"
