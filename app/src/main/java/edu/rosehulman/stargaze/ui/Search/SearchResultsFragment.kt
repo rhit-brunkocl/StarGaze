@@ -1,4 +1,4 @@
-package edu.rosehulman.stargaze.ui.Favorites
+package edu.rosehulman.stargaze.ui.Search
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,20 +8,20 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import edu.rosehulman.stargaze.databinding.FragmentFavoritesBinding
+import edu.rosehulman.stargaze.databinding.FragmentSearchResultsBinding
 import edu.rosehulman.stargaze.models.StarAdapter
 
-class FavoritesFragment : Fragment() {
-    lateinit var binding: FragmentFavoritesBinding
+class SearchResultsFragment : Fragment() {
+    lateinit var binding: FragmentSearchResultsBinding
     lateinit var adapter: StarAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentFavoritesBinding.inflate(inflater, container, false)
-        adapter = StarAdapter(this, "favorites")
+        binding = FragmentSearchResultsBinding.inflate(inflater, container, false)
+        adapter = StarAdapter(this, "search")
         adapter.addListener(fragmentName)
-        binding.searchRecyclerView.adapter=adapter
+        binding.searchRecyclerView.adapter = adapter
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.searchRecyclerView.setHasFixedSize(true)
         binding.searchRecyclerView.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
@@ -33,7 +33,7 @@ class FavoritesFragment : Fragment() {
         adapter.removeListener(fragmentName)
     }
     companion object{
-        const val fragmentName = "FavoritesFragment"
+        const val fragmentName = "SearchResultsFragment"
     }
 
 }

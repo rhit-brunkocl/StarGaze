@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:175660725036:android:b94d8a543a206aec59b289",
         "android_client_info": {
-          "package_name": "com.rosehulman.stargazeapp"
+          "package_name": "edu.rosehulman.stargaze"
         }
       },
       "oauth_client": [
