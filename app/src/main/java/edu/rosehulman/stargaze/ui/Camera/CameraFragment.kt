@@ -7,23 +7,18 @@ import androidx.fragment.app.Fragment
 import edu.rosehulman.stargaze.databinding.FragmentCameraBinding
 
 class CameraFragment : Fragment() {
-    private var _binding: FragmentCameraBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    lateinit var binding: FragmentCameraBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentCameraBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
+        binding = FragmentCameraBinding.inflate(inflater, container, false)
+
+
+
+        return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+
 }
