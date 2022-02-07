@@ -56,6 +56,7 @@ class CameraFragment : Fragment() {
             Camera.open() // attempt to get a Camera instance
         } catch (e: Exception) {
             // Camera is not available (in use or does not exist)
+            Log.d(Constants.TAG, "Failed to get camera")
             null // returns null if camera is unavailable
         }
     }
