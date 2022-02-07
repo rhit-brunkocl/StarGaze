@@ -5,6 +5,7 @@ import android.hardware.Camera
 import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import edu.rosehulman.stargaze.Constants
 import java.io.IOException
 
 class CameraPreview(
@@ -27,7 +28,7 @@ class CameraPreview(
                 setPreviewDisplay(holder)
                 startPreview()
             } catch (e: IOException) {
-                Log.d("CT", "Error setting camera preview: ${e.message}")
+                Log.d(Constants.TAG, "Error setting camera preview: ${e.message}")
             }
         }
     }
@@ -60,7 +61,7 @@ class CameraPreview(
                 setPreviewDisplay(mHolder)
                 startPreview()
             } catch (e: Exception) {
-                Log.d("CT", "Error starting camera preview: ${e.message}")
+                Log.d(Constants.TAG, "Error starting camera preview: ${e.message}")
             }
         }
     }
