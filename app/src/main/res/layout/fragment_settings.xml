@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.Settings.SettingsFragment"
@@ -101,12 +101,14 @@
         android:layout_below="@id/research_label"
         android:paddingLeft="20dp"
         />
+
     <Switch
         android:id="@+id/parallax_setting"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_below="@id/research_label"
         android:layout_alignParentRight="true"
+        android:checked="true"
         android:paddingRight="20dp" />
     <TextView
         android:id="@+id/harshaw_label"
@@ -123,8 +125,8 @@
         android:layout_height="30dp"
         android:layout_below="@id/parallax_setting"
         android:layout_alignParentRight="true"
-        android:paddingRight="20dp"
-        />
+        android:checked="true"
+        android:paddingRight="20dp" />
     <TextView
         android:id="@+id/GAIA_label"
         android:layout_width="wrap_content"
@@ -140,6 +142,7 @@
         android:layout_height="30dp"
         android:layout_below="@id/harshaw_setting"
         android:layout_alignParentRight="true"
+        android:checked="true"
         android:paddingRight="20dp" />
     <TextView
         android:id="@+id/wds_label"
@@ -149,14 +152,15 @@
         android:layout_below="@id/GAIA_label"
         android:paddingLeft="20dp"
         />
+
     <Switch
         android:id="@+id/wds_setting"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_below="@id/gaia_setting"
         android:layout_alignParentRight="true"
-        android:paddingRight="20dp"
-        />
+        android:checked="true"
+        android:paddingRight="20dp" />
     <TextView
         android:id="@+id/smart_search_label"
         android:layout_width="wrap_content"
@@ -176,7 +180,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/smart_search_setting"
         android:layout_centerHorizontal="true"
         android:text="LOGOUT"
         android:backgroundTint="@color/blue"

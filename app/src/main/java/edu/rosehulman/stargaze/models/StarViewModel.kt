@@ -10,12 +10,15 @@ import com.google.firebase.ktx.Firebase
 import kotlin.collections.ArrayList
 
 class StarViewModel : ViewModel() {
-    var favorites = ArrayList<Star>()
-    var settings = Setting()
+    var results = ArrayList<Star>()
+    var curUser = User()
     var selectedToView = ArrayList<Star>()
     var currentPos = 0
     val ref = Firebase.firestore.collection(Star.COLLECTION_PATH)
     val subscriptions = HashMap<String, ListenerRegistration>()
+    fun setUser(user: User){
+        curUser = user
+    }
     fun removeListener(fragName: String){
         subscriptions[fragName]?.remove()
         subscriptions.remove(fragName)
@@ -31,7 +34,7 @@ class StarViewModel : ViewModel() {
                 Log.d("tag", "In snapshot listener with ${snapshot?.size()} docs")
                 clear()
                 snapshot?.documents?.forEach {
-                    favorites.add(Star.from(it))
+                    results.add(Star.from(it))
                 }
                 observer()
             }
@@ -39,28 +42,22 @@ class StarViewModel : ViewModel() {
     }
 
     fun clear() {
-        favorites.clear()
+        results.clear()
     }
 
     fun favoriteStar(star: Star) {
-        favorites.add(star)
-        ref.add(star)
+        curUser.favorites.add(star)
     }
     fun curStarToString() : String{
-        return getCurStar().toString(settings)
+        return getCurStar().toString(curUser.settings)
     }
-    fun curStarAtPosToString(pos: Int) : String{
-        return getStarAt(pos).toString(settings)
-    }
-    fun getStarAt(pos: Int) = favorites[pos]
-    fun getCurStar() = favorites[currentPos]
+    fun getStarAt(pos: Int) = results[pos]
+    fun getCurStar() = results[currentPos]
     fun unfavoriteCurStar(){
-        ref.document(getCurStar().id).delete()
-        favorites.remove(getCurStar())
-        currentPos = 0
+        curUser.favorites.remove(getCurStar())
     }
     fun updatePos(pos: Int){
         currentPos = pos
     }
-    fun size() = favorites.size
+    fun size() = results.size
 }

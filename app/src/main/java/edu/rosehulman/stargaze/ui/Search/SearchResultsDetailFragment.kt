@@ -1,0 +1,54 @@
+package edu.rosehulman.stargaze.ui.Search;
+
+import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+
+import edu.rosehulman.stargaze.R;
+import edu.rosehulman.stargaze.databinding.FragmentSearchResultsDetailBinding
+import edu.rosehulman.stargaze.models.StarViewModel
+
+class SearchResultsDetailFragment :Fragment() {
+    private lateinit var binding: FragmentSearchResultsDetailBinding
+    private lateinit var model: StarViewModel
+    override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        binding = FragmentSearchResultsDetailBinding.inflate(inflater, container, false)
+        model = ViewModelProvider(requireActivity()).get(StarViewModel::class.java)
+        setUpButtons()
+        updateView()
+        return binding.root
+    }
+
+    fun setUpButtons() {
+        binding.cameraFab.setOnClickListener{
+            model.selectedToView.add(model.getCurStar())
+            findNavController().navigate(R.id.navigation_camera)
+        }
+        binding.favFab.setOnClickListener {
+            model.favoriteStar(model.getCurStar())
+        }
+        binding.leftButton.setOnClickListener {
+            model.currentPos--
+            updateView()
+        }
+        binding.rightButton.setOnClickListener {
+            model.currentPos++
+            updateView()
+        }
+    }
+
+    fun updateView(){
+        binding.starNameText.text = model.getCurStar().name
+        binding.starDetailText.text = model.curStarToString()
+    }
+}

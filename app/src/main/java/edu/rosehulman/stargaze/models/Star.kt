@@ -17,12 +17,12 @@ data class Star(var name: String, var RA:String, var Dec:String, var sep:Float, 
     }
 
     companion object {
-        const val COLLECTION_PATH = "quotes"
+        const val COLLECTION_PATH = "StarData"
         const val CREATED_KEY= "created"
         fun from(snapshot: DocumentSnapshot): Star {
-            val mq = snapshot.toObject(Star::class.java)!! // data
-            mq.id = snapshot.id
-            return mq
+            val star = snapshot.toObject(Star::class.java)!! // data
+            star.id = snapshot.id
+            return star
         }
     }
 }
