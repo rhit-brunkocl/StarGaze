@@ -29,7 +29,7 @@ class SearchFragment : Fragment() {
             criteria.max_RA = binding.maxRAEdittext.text.toString()
             criteria.min_Dec = binding.minDecEdittext.text.toString()
             criteria.max_Dec = binding.maxDecEdittext.text.toString()
-
+            
 
         }
     }
