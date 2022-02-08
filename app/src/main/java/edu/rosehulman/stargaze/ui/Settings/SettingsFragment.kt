@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.ActionBar
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import edu.rosehulman.stargaze.R
 import edu.rosehulman.stargaze.databinding.FragmentSettingsBinding
 import edu.rosehulman.stargaze.models.UserViewModel
@@ -20,8 +22,12 @@ class SettingsFragment : Fragment() {
     ): View? {
         binding = FragmentSettingsBinding.inflate(inflater, container, false)
         model = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
+        updateView()
         setUpButtons()
         return binding.root
+    }
+    fun updateView(){
+
     }
     fun setUpButtons(){
         binding.parallaxSetting.setOnClickListener {
@@ -47,6 +53,9 @@ class SettingsFragment : Fragment() {
         }
         binding.smartSearchSetting.setOnClickListener {
             model.user!!.settings.limit_search = binding.smartSearchSetting.isChecked()
+        }
+        binding.logoutButton.setOnClickListener(){
+            Firebase.auth.signOut()
         }
     }
 

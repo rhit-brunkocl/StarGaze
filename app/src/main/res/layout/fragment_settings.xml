@@ -178,6 +178,7 @@
         android:paddingRight="20dp"
         />
     <Button
+        android:id="@+id/logout_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/smart_search_setting"

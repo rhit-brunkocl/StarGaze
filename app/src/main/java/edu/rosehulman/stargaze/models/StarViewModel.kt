@@ -32,7 +32,7 @@ class StarViewModel : ViewModel() {
             if(criteria.WDS_name != ""){
                 val subscription = ref
                     .orderBy(Star.CREATED_KEY, Query.Direction.ASCENDING)
-                    .whereEqualTo("id", criteria.WDS_name)
+                    //.whereEqualTo("id", criteria.WDS_name)
                     .addSnapshotListener { snapshot: QuerySnapshot?, error: FirebaseFirestoreException? ->
                         error?.let {
                             Log.d("Tag", "Error: $it")

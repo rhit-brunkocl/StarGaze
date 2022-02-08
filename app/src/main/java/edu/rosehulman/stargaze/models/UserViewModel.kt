@@ -19,7 +19,7 @@ class UserViewModel : ViewModel(){
                 if(snapshot.exists()){
                     user = snapshot.toObject(User::class.java)
                 }else{
-                    user = User(name= Firebase.auth.currentUser!!.displayName!!)
+                    user = User(email = Firebase.auth.currentUser!!.email!!, name= Firebase.auth.currentUser!!.displayName!!)
                     ref.set(user!!)
                 }
                 observer()

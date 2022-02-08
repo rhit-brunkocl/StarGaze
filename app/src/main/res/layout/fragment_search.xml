@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:layout_below="@id/WDS_name_text"
+            android:textColor="@color/black"
             />
         <TextView
             android:id="@+id/min_RA_text"
@@ -37,6 +38,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:layout_below="@id/min_RA_text"
+            android:textColor="@color/black"
             />
         <TextView
             android:id="@+id/max_RA_text"
@@ -51,6 +53,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:layout_below="@id/max_RA_text"
+            android:textColor="@color/black"
             />
 
         <TextView
@@ -66,6 +69,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:layout_below="@id/min_Dec_text"
+            android:textColor="@color/black"
             />
         <TextView
             android:id="@+id/max_Dec_text"
@@ -80,6 +84,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:layout_below="@id/max_Dec_text"
+            android:textColor="@color/black"
             />
 
         <TextView
@@ -96,6 +101,7 @@
             android:inputType="numberDecimal"
             android:background="@color/white"
             android:layout_below="@id/min_deltasep_text"
+            android:textColor="@color/black"
             />
         <TextView
             android:id="@+id/max_deltasep_text"
@@ -111,6 +117,7 @@
             android:background="@color/white"
             android:inputType="numberDecimal"
             android:layout_below="@id/max_deltasep_text"
+            android:textColor="@color/black"
             />
 
 
@@ -128,6 +135,7 @@
             android:background="@color/white"
             android:inputType="numberDecimal"
             android:layout_below="@id/min_deltamag_text"
+            android:textColor="@color/black"
             />
         <TextView
             android:id="@+id/max_deltamag_text"
@@ -142,6 +150,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:layout_below="@id/max_deltamag_text"
+            android:textColor="@color/black"
             />
 
 
@@ -158,6 +167,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:layout_below="@id/min_obs_text"
+            android:textColor="@color/black"
             />
 
         <TextView
@@ -173,6 +183,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:layout_below="@id/max_obs_text"
+            android:textColor="@color/black"
             />
         <TextView
             android:id="@+id/min_sep_text"
@@ -187,6 +198,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:layout_below="@id/min_sep_text"
+            android:textColor="@color/black"
             />
 
         <TextView
@@ -202,6 +214,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:layout_below="@id/max_sep_text"
+            android:textColor="@color/black"
             />
         <TextView
             android:id="@+id/min_mag_text"
@@ -216,6 +229,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:layout_below="@id/min_mag_text"
+            android:textColor="@color/black"
             />
         <TextView
             android:id="@+id/max_mag_text"
@@ -230,6 +244,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:layout_below="@id/max_mag_text"
+            android:textColor="@color/black"
             />
 
         <TextView
@@ -245,6 +260,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:layout_below="@id/first_obs_text"
+            android:textColor="@color/black"
             />
         <TextView
             android:id="@+id/last_obs_text"
@@ -252,6 +268,7 @@
             android:layout_height="wrap_content"
             android:text="Last observed by: "
             android:layout_below="@id/first_obs_edittext"
+            android:textColor="@color/black"
             />
         <EditText
             android:id="@+id/last_obs_edittext"
@@ -259,6 +276,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:layout_below="@id/last_obs_text"
+            android:textColor="@color/black"
             />
 
         <Button
