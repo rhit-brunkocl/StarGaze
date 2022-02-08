@@ -16,6 +16,7 @@ class StarViewModel : ViewModel() {
     var currentPos = 0
     val ref = Firebase.firestore.collection(Star.COLLECTION_PATH)
     val subscriptions = HashMap<String, ListenerRegistration>()
+    var criteria = SearchCriteria()
     fun setUser(user: User){
         curUser = user
     }
@@ -23,28 +24,10 @@ class StarViewModel : ViewModel() {
         subscriptions[fragName]?.remove()
         subscriptions.remove(fragName)
     }
-    fun addListener(fragName: String, observer: () -> Unit) {
-        val subscription = ref
-            .orderBy(Star.CREATED_KEY, Query.Direction.ASCENDING)
-            .addSnapshotListener { snapshot: QuerySnapshot?, error: FirebaseFirestoreException? ->
-                error?.let {
-                    Log.d("Tag", "Error: $it")
-                    return@addSnapshotListener
-                }
-                Log.d("tag", "In snapshot listener with ${snapshot?.size()} docs")
-                clear()
-                snapshot?.documents?.forEach {
-                    results.add(Star.from(it))
-                }
-                observer()
-            }
-        subscriptions[fragName] = subscription
-    }
-    fun addListener(fragName: String, searchCriteria: SearchCriteria, observer: () -> Unit) {
-        if(searchCriteria.WDS_name != ""){
-            val subscription = ref
+    fun addListener(fragName: String, useCriteria: Boolean, observer: () -> Unit) {
+        if(!useCriteria){
+           /* val subscription = ref
                 .orderBy(Star.CREATED_KEY, Query.Direction.ASCENDING)
-                .whereEqualTo("id", searchCriteria.WDS_name)
                 .addSnapshotListener { snapshot: QuerySnapshot?, error: FirebaseFirestoreException? ->
                     error?.let {
                         Log.d("Tag", "Error: $it")
@@ -58,6 +41,43 @@ class StarViewModel : ViewModel() {
                     observer()
                 }
             subscriptions[fragName] = subscription
+            */
+        }else{
+            if(criteria.WDS_name != ""){
+                val subscription = ref
+                    .orderBy(Star.CREATED_KEY, Query.Direction.ASCENDING)
+                    .whereEqualTo("id", criteria.WDS_name)
+                    .addSnapshotListener { snapshot: QuerySnapshot?, error: FirebaseFirestoreException? ->
+                        error?.let {
+                            Log.d("Tag", "Error: $it")
+                            return@addSnapshotListener
+                        }
+                        Log.d("tag", "In snapshot listener with ${snapshot?.size()} docs")
+                        clear()
+                        snapshot?.documents?.forEach {
+                            results.add(Star.from(it))
+                        }
+                        observer()
+                    }
+                subscriptions[fragName] = subscription
+            }else{
+                val subscription = ref
+                    .orderBy(Star.CREATED_KEY, Query.Direction.ASCENDING)
+                    // implement filtering here
+                    .addSnapshotListener { snapshot: QuerySnapshot?, error: FirebaseFirestoreException? ->
+                        error?.let {
+                            Log.d("Tag", "Error: $it")
+                            return@addSnapshotListener
+                        }
+                        Log.d("tag", "In snapshot listener with ${snapshot?.size()} docs")
+                        clear()
+                        snapshot?.documents?.forEach {
+                            results.add(Star.from(it))
+                        }
+                        observer()
+                    }
+                subscriptions[fragName] = subscription
+            }
         }
     }
 
