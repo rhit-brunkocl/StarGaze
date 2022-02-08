@@ -1,6 +1,5 @@
 package edu.rosehulman.stargaze.ui.Camera
 
-import android.app.ActionBar
 import android.content.Context
 import android.content.pm.PackageManager
 import android.hardware.Camera
