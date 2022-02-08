@@ -232,10 +232,40 @@
             android:layout_below="@id/max_mag_text"
             />
 
+        <TextView
+            android:id="@+id/first_obs_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="First Observed by: "
+            android:layout_below="@id/max_mag_edittext"
+            />
+        <EditText
+            android:id="@+id/first_obs_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_below="@id/first_obs_text"
+            />
+        <TextView
+            android:id="@+id/last_obs_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Last observed by: "
+            android:layout_below="@id/first_obs_edittext"
+            />
+        <EditText
+            android:id="@+id/last_obs_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_below="@id/last_obs_text"
+            />
+
         <Button
+            android:id="@+id/search_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/max_mag_edittext"
+            android:layout_below="@id/last_obs_edittext"
             android:layout_marginTop="10dp"
             android:background="@color/blue"
             android:text="@string/search"

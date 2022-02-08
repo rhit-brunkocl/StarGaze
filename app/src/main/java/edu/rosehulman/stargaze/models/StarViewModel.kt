@@ -40,6 +40,26 @@ class StarViewModel : ViewModel() {
             }
         subscriptions[fragName] = subscription
     }
+    fun addListener(fragName: String, searchCriteria: SearchCriteria, observer: () -> Unit) {
+        if(searchCriteria.WDS_name != ""){
+            val subscription = ref
+                .orderBy(Star.CREATED_KEY, Query.Direction.ASCENDING)
+                .whereEqualTo("id", searchCriteria.WDS_name)
+                .addSnapshotListener { snapshot: QuerySnapshot?, error: FirebaseFirestoreException? ->
+                    error?.let {
+                        Log.d("Tag", "Error: $it")
+                        return@addSnapshotListener
+                    }
+                    Log.d("tag", "In snapshot listener with ${snapshot?.size()} docs")
+                    clear()
+                    snapshot?.documents?.forEach {
+                        results.add(Star.from(it))
+                    }
+                    observer()
+                }
+            subscriptions[fragName] = subscription
+        }
+    }
 
     fun clear() {
         results.clear()
