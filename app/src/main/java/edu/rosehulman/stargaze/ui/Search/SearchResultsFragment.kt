@@ -20,7 +20,7 @@ class SearchResultsFragment : Fragment() {
     ): View? {
         binding = FragmentSearchResultsBinding.inflate(inflater, container, false)
         adapter = StarAdapter(this, "search")
-        adapter.addListener(fragmentName)
+        adapter.addListener(fragmentName, true)
         binding.searchRecyclerView.adapter = adapter
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.searchRecyclerView.setHasFixedSize(true)

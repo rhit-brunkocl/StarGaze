@@ -26,22 +26,8 @@ class StarViewModel : ViewModel() {
     }
     fun addListener(fragName: String, useCriteria: Boolean, observer: () -> Unit) {
         if(!useCriteria){
-           /* val subscription = ref
-                .orderBy(Star.CREATED_KEY, Query.Direction.ASCENDING)
-                .addSnapshotListener { snapshot: QuerySnapshot?, error: FirebaseFirestoreException? ->
-                    error?.let {
-                        Log.d("Tag", "Error: $it")
-                        return@addSnapshotListener
-                    }
-                    Log.d("tag", "In snapshot listener with ${snapshot?.size()} docs")
-                    clear()
-                    snapshot?.documents?.forEach {
-                        results.add(Star.from(it))
-                    }
-                    observer()
-                }
-            subscriptions[fragName] = subscription
-            */
+           //use favorites from user
+            results = curUser.favorites
         }else{
             if(criteria.WDS_name != ""){
                 val subscription = ref
