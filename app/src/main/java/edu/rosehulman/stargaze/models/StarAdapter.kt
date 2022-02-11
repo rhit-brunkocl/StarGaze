@@ -1,5 +1,6 @@
 package edu.rosehulman.stargaze.models
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,11 +26,12 @@ class StarAdapter(fragment: Fragment, navTo: String): RecyclerView.Adapter<StarA
 
 
         Firebase.firestore.collection("StarDatabase").get()
-            .addOnSuccessListener { snapshot: QuerySnapshot ->
+            .addOnSuccessListener { result->
                 model.clear()
-                snapshot.documents.forEach {
-                    model.addStar(it.toObject(Star::class.java)!!)
+                for(document in result){
+                    model.addStar(document.toObject(Star::class.java))
                 }
+                Log.d("tag", "${model.all_stars.size} stars in all stars")
                 notifyDataSetChanged()
             }
     }

@@ -27,7 +27,14 @@ class SettingsFragment : Fragment() {
         return binding.root
     }
     fun updateView(){
-
+        binding.parallaxSetting.isChecked = model.user!!.settings.parallax
+        binding.harshawSetting.isChecked = model.user!!.settings.harshaw
+        binding.gaiaSetting.isChecked = model.user!!.settings.GAIA
+        binding.wdsSetting.isChecked = model.user!!.settings.WDS
+        binding.locationSetting.isChecked = model.user!!.settings.location
+        binding.cameraSetting.isChecked = model.user!!.settings.camera
+        binding.saveSetting.isChecked = model.user!!.settings.fav
+        binding.smartSearchSetting.isChecked = model.user!!.settings.limit_search
     }
     fun setUpButtons(){
         binding.parallaxSetting.setOnClickListener {

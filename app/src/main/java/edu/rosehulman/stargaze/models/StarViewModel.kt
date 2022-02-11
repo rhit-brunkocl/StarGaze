@@ -25,7 +25,7 @@ class StarViewModel : ViewModel() {
         curUser = user
     }
     fun addStar(star: Star){
-        results.add(star)
+        all_stars.add(star)
     }
     fun removeListener(fragName: String){
         subscriptions[fragName]?.remove()
@@ -74,6 +74,7 @@ class StarViewModel : ViewModel() {
     }
 
     fun clear() {
+        all_stars.clear()
         results.clear()
     }
 
