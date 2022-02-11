@@ -1,7 +1,5 @@
 package edu.rosehulman.stargaze.models
 
-import android.annotation.SuppressLint
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +8,10 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.navOptions
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import edu.rosehulman.stargaze.R
 
 class StarAdapter(fragment: Fragment, navTo: String): RecyclerView.Adapter<StarAdapter.StarViewHolder>(){
@@ -21,6 +21,19 @@ class StarAdapter(fragment: Fragment, navTo: String): RecyclerView.Adapter<StarA
         val view = LayoutInflater.from(parent.context).inflate(R.layout.star_detail_layout, parent, false)
         return StarViewHolder(view, nav)
     }
+    init {
+
+
+        Firebase.firestore.collection("StarDatabase").get()
+            .addOnSuccessListener { snapshot: QuerySnapshot ->
+                model.clear()
+                snapshot.documents.forEach {
+                    model.addStar(it.toObject(Star::class.java)!!)
+                }
+                notifyDataSetChanged()
+            }
+    }
+
 
     fun addListener(fragName: String, useCriteria: Boolean) {
         model.addListener(fragName, useCriteria) {
@@ -66,10 +79,10 @@ class StarAdapter(fragment: Fragment, navTo: String): RecyclerView.Adapter<StarA
             }
         }
         fun bind(star: Star){
-            starNameTextView.text = star.name
-            var starSep = star.sep
-            var starMag = star.magnitude
-            starInfoTextView.text = "Separation: $starSep arcseconds\nMagnitude: $starMag"
+            starNameTextView.text = star.WDSName
+            var starSep = star.gaia_sep
+            var starMag = star.gaia_mag_1
+            starInfoTextView.text = "Separation: $starSep arcseconds\nMagnitude of A star: $starMag"
         }
     }
 }

@@ -38,17 +38,21 @@ class SearchResultsDetailFragment :Fragment() {
             model.favoriteStar(model.getCurStar())
         }
         binding.leftButton.setOnClickListener {
-            model.currentPos--
+            if(model.currentPos != 0) {
+                model.currentPos--
+            }
             updateView()
         }
         binding.rightButton.setOnClickListener {
-            model.currentPos++
+            if(model.currentPos<model.size()-1) {
+                model.currentPos++
+            }
             updateView()
         }
     }
 
     fun updateView(){
-        binding.starNameText.text = model.getCurStar().name
+        binding.starNameText.text = model.getCurStar().WDSName
         binding.starDetailText.text = model.curStarToString()
     }
 }

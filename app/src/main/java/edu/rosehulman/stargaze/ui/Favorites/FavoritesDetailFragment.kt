@@ -45,7 +45,7 @@ class FavoritesDetailFragment : Fragment() {
     }
 
     fun updateView(){
-        binding.starNameText.text = model.getCurStar().name
+        binding.starNameText.text = model.getCurStar().WDSName
         binding.starDetailText.text = model.curStarToString()
     }
 }
