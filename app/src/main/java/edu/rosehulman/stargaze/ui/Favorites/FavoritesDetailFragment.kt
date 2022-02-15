@@ -35,11 +35,15 @@ class FavoritesDetailFragment : Fragment() {
             findNavController().navigate(R.id.navigation_camera)
         }
         binding.leftButton.setOnClickListener {
-            model.currentPos--
+            if(model.currentPos>0) {
+                model.currentPos--
+            }
             updateView()
         }
         binding.rightButton.setOnClickListener {
-            model.currentPos++
+            if(model.currentPos<model.size()-1) {
+                model.currentPos++
+            }
             updateView()
         }
     }

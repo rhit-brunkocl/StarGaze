@@ -11,17 +11,23 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import edu.rosehulman.stargaze.R
 import edu.rosehulman.stargaze.databinding.FragmentSettingsBinding
+import edu.rosehulman.stargaze.models.Setting
+import edu.rosehulman.stargaze.models.StarViewModel
 import edu.rosehulman.stargaze.models.UserViewModel
 
 class SettingsFragment : Fragment() {
     private lateinit var binding: FragmentSettingsBinding
     private lateinit var model: UserViewModel
+    private lateinit var starModel: StarViewModel
+    lateinit var settings: Setting
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSettingsBinding.inflate(inflater, container, false)
         model = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
+        starModel = ViewModelProvider(requireActivity()).get(StarViewModel::class.java)
+        settings = model.user!!.settings
         updateView()
         setUpButtons()
         return binding.root
@@ -38,28 +44,44 @@ class SettingsFragment : Fragment() {
     }
     fun setUpButtons(){
         binding.parallaxSetting.setOnClickListener {
-            model.user!!.settings.parallax = binding.parallaxSetting.isChecked()
+            settings.parallax = binding.parallaxSetting.isChecked()
+            model.updateSettings(settings)
+            starModel.curUser.settings = settings
         }
         binding.harshawSetting.setOnClickListener {
-            model.user!!.settings.harshaw = binding.harshawSetting.isChecked()
+            settings.harshaw = binding.harshawSetting.isChecked()
+            model.updateSettings(settings)
+            starModel.curUser.settings = settings
         }
         binding.gaiaSetting.setOnClickListener {
-            model.user!!.settings.GAIA = binding.gaiaSetting.isChecked()
+            settings.GAIA = binding.gaiaSetting.isChecked()
+            model.updateSettings(settings)
+            starModel.curUser.settings = settings
         }
         binding.wdsSetting.setOnClickListener {
-            model.user!!.settings.WDS = binding.wdsSetting.isChecked()
+            settings.WDS = binding.wdsSetting.isChecked()
+            model.updateSettings(settings)
+            starModel.curUser.settings = settings
         }
         binding.locationSetting.setOnClickListener {
-            model.user!!.settings.location = binding.locationSetting.isChecked()
+            settings.location = binding.locationSetting.isChecked()
+            model.updateSettings(settings)
+            starModel.curUser.settings = settings
         }
         binding.cameraSetting.setOnClickListener {
-            model.user!!.settings.camera = binding.cameraSetting.isChecked()
+            settings.camera = binding.cameraSetting.isChecked()
+            model.updateSettings(settings)
+            starModel.curUser.settings = settings
         }
         binding.saveSetting.setOnClickListener {
-            model.user!!.settings.fav = binding.saveSetting.isChecked()
+            settings.fav = binding.saveSetting.isChecked()
+            model.updateSettings(settings)
+            starModel.curUser.settings = settings
         }
         binding.smartSearchSetting.setOnClickListener {
-            model.user!!.settings.limit_search = binding.smartSearchSetting.isChecked()
+            settings.limit_search = binding.smartSearchSetting.isChecked()
+            model.updateSettings(settings)
+            starModel.curUser.settings = settings
         }
         binding.logoutButton.setOnClickListener(){
             Firebase.auth.signOut()

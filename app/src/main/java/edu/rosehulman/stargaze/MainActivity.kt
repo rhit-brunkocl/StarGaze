@@ -20,6 +20,8 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.firestore.ktx.firestoreSettings
 import com.google.firebase.ktx.Firebase
 import edu.rosehulman.stargaze.databinding.ActivityMainBinding
+import edu.rosehulman.stargaze.models.StarAdapter
+import edu.rosehulman.stargaze.models.StarViewModel
 import edu.rosehulman.stargaze.models.UserViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -84,6 +86,7 @@ class MainActivity : AppCompatActivity() {
             }else{
                 Log.d("tag", "Auth Listener created")
                 val userModel = ViewModelProvider(this).get(UserViewModel::class.java)
+                val starModel = ViewModelProvider(this).get(StarViewModel::class.java)
                 userModel.getOrMakeUser {
                     if (userModel.hasCompletedSetup()) {
                         val id = navController.currentDestination!!.id
@@ -92,6 +95,7 @@ class MainActivity : AppCompatActivity() {
                             findNavController(R.id.nav_host_fragment_activity_main)
                                 .navigate(R.id.navigation_user)
                         }
+                        starModel.curUser = userModel.user!!
                     }
                 }
             }

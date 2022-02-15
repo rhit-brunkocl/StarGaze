@@ -38,5 +38,22 @@ class UserViewModel : ViewModel(){
         }
     }
 
+    fun updateSettings(newSettings: Setting){
+        if(user!=null){
+           with(user!!){
+               settings = newSettings
+               ref.set(this)
+           }
+        }
+    }
+
     fun hasCompletedSetup() = user?.completedSetup ?: false
+    fun updateFavorites(star: Star) {
+        if(user!=null){
+            with(user!!){
+                favorites.add(star)
+                ref.set(this)
+            }
+        }
+    }
 }

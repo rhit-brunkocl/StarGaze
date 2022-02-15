@@ -20,9 +20,20 @@ class StarViewModel : ViewModel() {
     var ref = Firebase.firestore.collection(Star.COLLECTION_PATH)
     val subscriptions = HashMap<String, ListenerRegistration>()
     var criteria = SearchCriteria()
-    val uid = Firebase.auth.uid!!
-    fun setUser(user: User){
-        curUser = user
+    init {
+        for (i in 0 until 4){
+            Firebase.firestore.collection("StarDatabase")
+                .orderBy("id")
+                .whereLessThan("id", 1400+i*1400)
+                .whereGreaterThanOrEqualTo("id", 0+i*1400)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        addStar(document.toObject(Star::class.java))
+                    }
+                    Log.d("tag", "${all_stars.size} stars in all stars")
+                }
+        }
     }
     fun addStar(star: Star){
         all_stars.add(star)
@@ -36,6 +47,7 @@ class StarViewModel : ViewModel() {
         if(!useCriteria){
            //use favorites from user
             results.clear()
+            Log.d("tag", curUser.favorites.size.toString())
             results = curUser.favorites
         }else{
             Log.d("tag", criteria.WDS_name.isNotEmpty().toString())
@@ -69,11 +81,8 @@ class StarViewModel : ViewModel() {
                         && star.gaia_mag_1 > criteria.min_mag && star.gaia_mag_2 < criteria.max_mag
                         && star.FSTDATE > criteria.firstObs && star.LSTDATE < criteria.lastObs
                     ) {
-                        if(size()>200){
-                            break;
-                        }
                         if(curUser.settings.limit_search){
-                            if(star.gaia_mag_2 > 10){
+                            if(star.gaia_mag_1 < 10){
                                 results.add(star)
                             }
                         }else {

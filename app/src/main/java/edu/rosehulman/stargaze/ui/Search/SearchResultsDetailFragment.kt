@@ -13,10 +13,12 @@ import androidx.navigation.fragment.findNavController
 import edu.rosehulman.stargaze.R;
 import edu.rosehulman.stargaze.databinding.FragmentSearchResultsDetailBinding
 import edu.rosehulman.stargaze.models.StarViewModel
+import edu.rosehulman.stargaze.models.UserViewModel
 
 class SearchResultsDetailFragment :Fragment() {
     private lateinit var binding: FragmentSearchResultsDetailBinding
     private lateinit var model: StarViewModel
+    private lateinit var userModel: UserViewModel
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -24,6 +26,7 @@ class SearchResultsDetailFragment :Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentSearchResultsDetailBinding.inflate(inflater, container, false)
         model = ViewModelProvider(requireActivity()).get(StarViewModel::class.java)
+        userModel = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
         setUpButtons()
         updateView()
         return binding.root
@@ -38,6 +41,7 @@ class SearchResultsDetailFragment :Fragment() {
             findNavController().navigate(R.id.navigation_camera)
         }
         binding.favFab.setOnClickListener {
+            userModel.updateFavorites(model.getCurStar())
             model.favoriteStar(model.getCurStar())
         }
         binding.leftButton.setOnClickListener {

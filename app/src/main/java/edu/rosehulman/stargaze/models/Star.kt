@@ -57,13 +57,16 @@ data class Star(
         out+= "RA: $WDS_RA\nDec: $WDS_DEC\nNumber of Observations: $NOBS\nFirst observed: $FSTDATE\nLast observed: $LSTDATE\n"
         if(settings.parallax){
             out+="Parallax: $parallax_A and $parallax_b\n"
-        }else if(settings.harshaw){
+        }
+        if(settings.harshaw){
             out+="Harshaw Statistic: $harshaw\n"
-        }else if(settings.GAIA){
+        }
+        if(settings.GAIA){
             out+="GAIA Magnitude of A star: $gaia_mag_1\nGAIA Magnitude of B star: ${gaia_mag_2}\nDelta magnitude: $delta_mag_GAIA"
             out+="GAIA separation(arcseconds): $gaia_sep\n\n"
             out+="GAIA PA: $gaia_pa\n"
-        }else if(settings.WDS){
+        }
+        if(settings.WDS){
             out+="WDS Magnitude of A star: $FSTMAG\nWDS Magnitude of B star: $SECMAG\n"
             out+="WDS First Observed Separation: $FSTSEP\nWDS Last Observed Separation: $LSTSEP\nDelta Separation: $delta_sep\n"
             out+="WDS First Observed Position Angle: $FSTPA\nWDS Last Observed Position Angle: $LSTPA\n"

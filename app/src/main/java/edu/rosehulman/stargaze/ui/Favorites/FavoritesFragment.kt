@@ -27,11 +27,6 @@ class FavoritesFragment : Fragment() {
         binding.searchRecyclerView.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
         return binding.root
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        adapter.removeListener(fragmentName)
-    }
     companion object{
         const val fragmentName = "FavoritesFragment"
     }
