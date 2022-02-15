@@ -31,26 +31,11 @@ class StarViewModel : ViewModel() {
         subscriptions[fragName]?.remove()
         subscriptions.remove(fragName)
     }
-    fun setAllStars(observer: () -> Unit) {
-        for (i in 0 until 100){
-            Firebase.firestore.collection("StarDatabase")
-                .orderBy("id")
-                .whereLessThan("id", 1400+i*1400)
-                .whereGreaterThanOrEqualTo("id", 0+i*1400)
-                .get()
-                .addOnSuccessListener { result ->
-                    for (document in result) {
-                        addStar(document.toObject(Star::class.java))
-                    }
-                    Log.d("tag", "${all_stars.size} stars in all stars")
-                    observer()
-                }
-            Thread.sleep(1000)
-        }
-    }
+
     fun addListener(fragName: String, useCriteria: Boolean, observer: () -> Unit) {
         if(!useCriteria){
            //use favorites from user
+            results.clear()
             results = curUser.favorites
         }else{
             Log.d("tag", criteria.WDS_name.isNotEmpty().toString())

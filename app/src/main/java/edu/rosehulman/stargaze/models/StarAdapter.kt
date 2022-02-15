@@ -22,15 +22,24 @@ class StarAdapter(fragment: Fragment, navTo: String): RecyclerView.Adapter<StarA
         val view = LayoutInflater.from(parent.context).inflate(R.layout.star_detail_layout, parent, false)
         return StarViewHolder(view, nav)
     }
+    init {
+        for (i in 0 until 100){
+            Firebase.firestore.collection("StarDatabase")
+                .orderBy("id")
+                .whereLessThan("id", 1400+i*1400)
+                .whereGreaterThanOrEqualTo("id", 0+i*1400)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        model.addStar(document.toObject(Star::class.java))
+                    }
+                    Log.d("tag", "${model.all_stars.size} stars in all stars")
 
-    fun setAllStars(fragName: String, useCriteria: Boolean){
-        model.setAllStars {
-            model.addListener(fragName, useCriteria){
-                notifyDataSetChanged()
-            }
-            notifyDataSetChanged()
+                }
+            //Thread.sleep(500)
         }
     }
+
     fun addListener(fragName: String, useCriteria: Boolean){
         model.addListener(fragName, useCriteria){
             notifyDataSetChanged()
