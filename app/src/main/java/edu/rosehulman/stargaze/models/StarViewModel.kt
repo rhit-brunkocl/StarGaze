@@ -31,19 +31,22 @@ class StarViewModel : ViewModel() {
         subscriptions[fragName]?.remove()
         subscriptions.remove(fragName)
     }
-    fun setAllStars(observer: () -> Unit){
-        Firebase.firestore.collection("StarDatabase")
-            .orderBy("id")
-            .whereLessThan("id", 1400)
-            .whereGreaterThanOrEqualTo("id", 0)
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    addStar(document.toObject(Star::class.java))
+    fun setAllStars(observer: () -> Unit) {
+        for (i in 0 until 100){
+            Firebase.firestore.collection("StarDatabase")
+                .orderBy("id")
+                .whereLessThan("id", 1400+i*1400)
+                .whereGreaterThanOrEqualTo("id", 0+i*1400)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        addStar(document.toObject(Star::class.java))
+                    }
+                    Log.d("tag", "${all_stars.size} stars in all stars")
+                    observer()
                 }
-                Log.d("tag", "${all_stars.size} stars in all stars")
-            }
-        observer()
+            Thread.sleep(1000)
+        }
     }
     fun addListener(fragName: String, useCriteria: Boolean, observer: () -> Unit) {
         if(!useCriteria){
@@ -71,9 +74,7 @@ class StarViewModel : ViewModel() {
                 subscriptions[fragName] = subscription
             }else {
                 results.clear()
-                Log.d("tag", "not in loop")
                 for (star in all_stars) {
-                    Log.d("tag", "in loop")
                     if (star.WDS_RA > criteria.min_RA && star.WDS_RA < criteria.max_RA
                         && star.WDS_DEC > criteria.min_Dec && star.WDS_DEC < criteria.max_Dec
                         && star.delta_sep > criteria.min_deltaSep && star.delta_sep < criteria.max_deltaSep
@@ -83,10 +84,13 @@ class StarViewModel : ViewModel() {
                         && star.gaia_mag_1 > criteria.min_mag && star.gaia_mag_2 < criteria.max_mag
                         && star.FSTDATE > criteria.firstObs && star.LSTDATE < criteria.lastObs
                     ) {
-                        Log.d("tag", "Added to results")
+                        if(size()>1000){
+                            break;
+                        }
                         results.add(star)
                     }
                 }
+                Log.d("tag","${results.size}")
             }
 
         }
@@ -98,16 +102,17 @@ class StarViewModel : ViewModel() {
     }
 
     fun favoriteStar(star: Star) {
-        curUser.favorites.add(star)
+        if(curUser.favorites.contains(star)){
+            curUser.favorites.remove(star)
+        }else {
+            curUser.favorites.add(star)
+        }
     }
     fun curStarToString() : String{
         return getCurStar().toString(curUser.settings)
     }
     fun getStarAt(pos: Int) = results[pos]
     fun getCurStar() = results[currentPos]
-    fun unfavoriteCurStar(){
-        curUser.favorites.remove(getCurStar())
-    }
     fun updatePos(pos: Int){
         currentPos = pos
     }

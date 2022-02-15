@@ -28,6 +28,12 @@ class StarAdapter(fragment: Fragment, navTo: String): RecyclerView.Adapter<StarA
             model.addListener(fragName, useCriteria){
                 notifyDataSetChanged()
             }
+            notifyDataSetChanged()
+        }
+    }
+    fun addListener(fragName: String, useCriteria: Boolean){
+        model.addListener(fragName, useCriteria){
+            notifyDataSetChanged()
         }
     }
 

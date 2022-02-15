@@ -252,6 +252,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="First Observed by: "
+            android:textColor="@color/white"
             android:layout_below="@id/max_mag_edittext"
             />
         <EditText
@@ -268,15 +269,15 @@
             android:layout_height="wrap_content"
             android:text="Last observed by: "
             android:layout_below="@id/first_obs_edittext"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             />
         <EditText
             android:id="@+id/last_obs_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:layout_below="@id/last_obs_text"
             android:textColor="@color/black"
+            android:layout_below="@id/last_obs_text"
             />
 
         <Button

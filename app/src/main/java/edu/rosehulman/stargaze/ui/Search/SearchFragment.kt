@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -52,6 +53,7 @@ class SearchFragment : Fragment() {
     private fun setUpButton() {
         binding.searchButton.setOnClickListener {
             Log.d("tag", "search button pressed")
+            Toast.makeText(requireContext(), "It may take a bit to load your results, please be patient!", Toast.LENGTH_LONG).show()
             model.criteria.WDS_name = binding.WDSNameEdittext.text.toString()
             model.criteria.min_RA = binding.minRAEdittext.text.toString().toDouble()
             model.criteria.max_RA = binding.maxRAEdittext.text.toString().toDouble()
