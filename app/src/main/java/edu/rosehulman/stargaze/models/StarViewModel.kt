@@ -84,10 +84,16 @@ class StarViewModel : ViewModel() {
                         && star.gaia_mag_1 > criteria.min_mag && star.gaia_mag_2 < criteria.max_mag
                         && star.FSTDATE > criteria.firstObs && star.LSTDATE < criteria.lastObs
                     ) {
-                        if(size()>1000){
+                        if(size()>200){
                             break;
                         }
-                        results.add(star)
+                        if(curUser.settings.limit_search){
+                            if(star.gaia_mag_2 > 10){
+                                results.add(star)
+                            }
+                        }else {
+                            results.add(star)
+                        }
                     }
                 }
                 Log.d("tag","${results.size}")

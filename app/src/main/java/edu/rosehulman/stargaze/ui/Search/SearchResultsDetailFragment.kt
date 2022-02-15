@@ -32,6 +32,9 @@ class SearchResultsDetailFragment :Fragment() {
     fun setUpButtons() {
         binding.cameraFab.setOnClickListener{
             model.selectedToView.add(model.getCurStar())
+            if(model.curUser.settings.fav){
+                model.favoriteStar(model.getCurStar())
+            }
             findNavController().navigate(R.id.navigation_camera)
         }
         binding.favFab.setOnClickListener {
