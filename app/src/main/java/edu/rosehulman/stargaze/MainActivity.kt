@@ -15,6 +15,9 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
+import com.google.firebase.firestore.ktx.firestoreSettings
 import com.google.firebase.ktx.Firebase
 import edu.rosehulman.stargaze.databinding.ActivityMainBinding
 import edu.rosehulman.stargaze.models.UserViewModel
@@ -32,6 +35,18 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         Firebase.auth.addAuthStateListener(authStateListener)
+        start()
+    }
+
+    fun start() {
+        val fireStore = FirebaseFirestore.getInstance()
+
+        val settings = firestoreSettings {
+            isPersistenceEnabled = true
+            cacheSizeBytes = FirebaseFirestoreSettings.CACHE_SIZE_UNLIMITED
+        }
+
+        fireStore.firestoreSettings = settings
     }
 
     override fun onStop() {

@@ -20,7 +20,7 @@ class FavoritesFragment : Fragment() {
     ): View? {
         binding = FragmentFavoritesBinding.inflate(inflater, container, false)
         adapter = StarAdapter(this, "favorites")
-        adapter.addListener(fragmentName, false)
+        adapter.setAllStars(fragmentName, false)
         binding.searchRecyclerView.adapter=adapter
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.searchRecyclerView.setHasFixedSize(true)

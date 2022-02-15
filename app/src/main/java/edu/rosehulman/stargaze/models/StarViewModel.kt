@@ -31,12 +31,28 @@ class StarViewModel : ViewModel() {
         subscriptions[fragName]?.remove()
         subscriptions.remove(fragName)
     }
+    fun setAllStars(observer: () -> Unit){
+        Firebase.firestore.collection("StarDatabase")
+            .orderBy("id")
+            .whereLessThan("id", 1400)
+            .whereGreaterThanOrEqualTo("id", 0)
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    addStar(document.toObject(Star::class.java))
+                }
+                Log.d("tag", "${all_stars.size} stars in all stars")
+            }
+        observer()
+    }
     fun addListener(fragName: String, useCriteria: Boolean, observer: () -> Unit) {
         if(!useCriteria){
            //use favorites from user
             results = curUser.favorites
         }else{
-            if(criteria.WDS_name != ""){
+            Log.d("tag", criteria.WDS_name.isNotEmpty().toString())
+            Log.d("tag", criteria.WDS_name)
+            if(criteria.WDS_name.isNotEmpty()){
                 val subscription = ref
                     .orderBy("id", Query.Direction.ASCENDING)
                     .whereEqualTo("WDSName", criteria.WDS_name)
@@ -55,7 +71,9 @@ class StarViewModel : ViewModel() {
                 subscriptions[fragName] = subscription
             }else {
                 results.clear()
+                Log.d("tag", "not in loop")
                 for (star in all_stars) {
+                    Log.d("tag", "in loop")
                     if (star.WDS_RA > criteria.min_RA && star.WDS_RA < criteria.max_RA
                         && star.WDS_DEC > criteria.min_Dec && star.WDS_DEC < criteria.max_Dec
                         && star.delta_sep > criteria.min_deltaSep && star.delta_sep < criteria.max_deltaSep
@@ -65,6 +83,7 @@ class StarViewModel : ViewModel() {
                         && star.gaia_mag_1 > criteria.min_mag && star.gaia_mag_2 < criteria.max_mag
                         && star.FSTDATE > criteria.firstObs && star.LSTDATE < criteria.lastObs
                     ) {
+                        Log.d("tag", "Added to results")
                         results.add(star)
                     }
                 }
