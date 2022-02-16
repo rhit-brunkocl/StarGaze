@@ -21,7 +21,7 @@ class StarViewModel : ViewModel() {
     val subscriptions = HashMap<String, ListenerRegistration>()
     var criteria = SearchCriteria()
     init {
-        for (i in 0 until 4){
+        for (i in 0 until 100){
             Firebase.firestore.collection("StarDatabase")
                 .orderBy("id")
                 .whereLessThan("id", 1400+i*1400)
@@ -52,22 +52,12 @@ class StarViewModel : ViewModel() {
             Log.d("tag", criteria.WDS_name.isNotEmpty().toString())
             Log.d("tag", criteria.WDS_name)
             if(criteria.WDS_name.isNotEmpty()){
-                val subscription = ref
-                    .orderBy("id", Query.Direction.ASCENDING)
-                    .whereEqualTo("WDSName", criteria.WDS_name)
-                    .addSnapshotListener { snapshot: QuerySnapshot?, error: FirebaseFirestoreException? ->
-                        error?.let {
-                            Log.d("Tag", "Error: $it")
-                            return@addSnapshotListener
-                        }
-                        Log.d("tag", "In snapshot listener with ${snapshot?.size()} docs")
-                        clear()
-                        snapshot?.documents?.forEach {
-                            results.add(Star.from(it))
-                        }
-                        observer()
+                results.clear()
+                for(stars in all_stars){
+                    if(stars.WDSName == criteria.WDS_name){
+                        results.add(stars)
                     }
-                subscriptions[fragName] = subscription
+                }
             }else {
                 results.clear()
                 for (star in all_stars) {
