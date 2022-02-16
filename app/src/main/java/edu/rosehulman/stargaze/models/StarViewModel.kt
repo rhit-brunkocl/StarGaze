@@ -15,7 +15,7 @@ class StarViewModel : ViewModel() {
     var results = ArrayList<Star>()
     var curUser = User()
     var all_stars = ArrayList<Star>()
-    var selectedToView = ArrayList<Star>()
+    var selectedToView: Star? = null
     var currentPos = 0
     var ref = Firebase.firestore.collection(Star.COLLECTION_PATH)
     val subscriptions = HashMap<String, ListenerRegistration>()

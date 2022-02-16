@@ -31,7 +31,7 @@ class FavoritesDetailFragment : Fragment() {
 
     fun setUpButtons() {
         binding.cameraFab.setOnClickListener{
-            model.selectedToView.add(model.getCurStar())
+            model.selectedToView = model.getCurStar()
             findNavController().navigate(R.id.navigation_camera)
         }
         binding.leftButton.setOnClickListener {
