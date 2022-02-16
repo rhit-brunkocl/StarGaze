@@ -46,7 +46,6 @@ class StarViewModel : ViewModel() {
     fun addListener(fragName: String, useCriteria: Boolean, observer: () -> Unit) {
         if(!useCriteria){
            //use favorites from user
-            results.clear()
             Log.d("tag", curUser.favorites.size.toString())
             results = curUser.favorites
         }else{
