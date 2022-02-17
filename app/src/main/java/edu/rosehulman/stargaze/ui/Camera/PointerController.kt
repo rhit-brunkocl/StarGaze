@@ -120,18 +120,23 @@ class PointerController(val parent: CameraFragment, val icon: View) {
 
     fun updatePointer(){
         /* convert star data to relative longitude + absolute latitude in radians*/
+
+
         val dayLengthInS = 86400L
-        val timeOfDayMS = (Calendar.getInstance().timeInMillis - (946684800L * 1000L) /* < unix to j2000 conversion */ - 6852900) % (dayLengthInS * 1000L)
+        val timeOfDayMS = (Calendar.getInstance().timeInMillis
+                - (946684800L * 1000L) /* < unix to j2000 conversion */
+                + 6852900 /* < j2000 to y2000 vernal  equinox */) % (dayLengthInS * 1000L)
         val earthRadians = ((timeOfDayMS.toFloat() / (dayLengthInS * 1000L).toFloat()) * 2.0f * PI)
         //Log.d(Constants.TAG, "$starRA : $earthRadians : $longitude : $timeOfDayMS")
-        var starRelLong = (starRA + earthRadians).toFloat() // NOTE: removed - longitude bc it's accounted for in vector transform
+        val starRelLong = (starRA + earthRadians).toFloat() // NOTE: removed - longitude bc it's accounted for in vector transform
         //Log.d(Constants.TAG, "Updating Pointer $starRelLong")
 
 
-        starDEC = (PI/4.0f).toFloat()
-        latitude = 0.0
+        //starDEC = (PI/4.0f).toFloat()
+        //latitude = 0.0
+        //longitude = 0.0
         //latitude = .68
-        starRelLong = 0f
+        //starRelLong = 0f
 
         // This produces global coordinates (z is always from origin to N, y is origin to 0DEC 0RA)
         val starDir = FloatArray(3)
@@ -141,16 +146,20 @@ class PointerController(val parent: CameraFragment, val icon: View) {
 
         // Either going to fix the quaternion transform (unlikely) or use
         // a projection onto a function for each resultant axis
+
+        // Z up in gravity
         val selfZ = FloatArray(3)
         selfZ[0] = (Math.sin((longitude).toDouble()) * Math.cos((latitude).toDouble())).toFloat()
         selfZ[1] = (Math.cos((longitude).toDouble()) * Math.cos((latitude).toDouble())).toFloat()
         selfZ[2] = (Math.sin(latitude.toDouble())).toFloat()
 
+        // Y points north
         val selfY = FloatArray(3)
-        selfY[0] = (Math.sin(longitude) * Math.cos(latitude)).toFloat()
-        selfY[1] = (-Math.cos(longitude) * Math.cos(latitude)).toFloat()
-        selfY[2] = Math.sin(latitude).toFloat()
+        selfY[0] = -(Math.sin(longitude) * Math.sin(-latitude)).toFloat()
+        selfY[1] = -(Math.cos(longitude) * Math.sin(-latitude)).toFloat()
+        selfY[2] = -Math.cos(-latitude).toFloat()
 
+        // X is YxZ -> points parallel to the lines of longitude
         val selfX = FloatArray(3)
         selfX[0] = selfY[1] * selfZ[2] - selfZ[1] * selfY[2]
         selfX[1] = -(selfY[0] * selfZ[2] - selfZ[0] * selfY[2])
@@ -168,23 +177,22 @@ class PointerController(val parent: CameraFragment, val icon: View) {
 
         val phoneAlignedDir = rotateQ(vertRelativeStarVec, phoneRotQuat)
         //Log.d(Constants.TAG, "rot: ${verticalityRotation[0]} : ${verticalityRotation[1]} : ${verticalityRotation[2]} : ${verticalityRotation[3]}")
-        Log.d(Constants.TAG, "VR:  ${vertRelativeStarVec[0]} : ${vertRelativeStarVec[1]} : ${vertRelativeStarVec[2]}")
-        Log.d(Constants.TAG, "SD:  ${starDir[0]} : ${starDir[1]} : ${starDir[2]}")
+        //Log.d(Constants.TAG, "VR:  ${vertRelativeStarVec[0]} : ${vertRelativeStarVec[1]} : ${vertRelativeStarVec[2]}")
+        //Log.d(Constants.TAG, "SD:  ${starDir[0]} : ${starDir[1]} : ${starDir[2]}")
 
-        parent.binding.debugText.text = "<${phoneAlignedDir[0]},\n ${phoneAlignedDir[1]},\n ${phoneAlignedDir[2]}>"
+        //parent.binding.debugText.text = "<${phoneAlignedDir[0]},\n ${phoneAlignedDir[1]},\n ${phoneAlignedDir[2]}>"
         updateViewportSize()
-        val yi = -phoneAlignedDir[1] * (focalLength / -phoneAlignedDir[2]) * (viewportWidth.toFloat() / sensorSize.width) * 2.0f
-        val xi = -phoneAlignedDir[0] * (focalLength / -phoneAlignedDir[2]) * (viewportWidth.toFloat() / sensorSize.width) * 2.0f
+        val yi = phoneAlignedDir[1] * (focalLength / phoneAlignedDir[2]) * (viewportWidth.toFloat() / sensorSize.width) * 2.0f
+        val xi = -phoneAlignedDir[0] * (focalLength / phoneAlignedDir[2]) * (viewportWidth.toFloat() / sensorSize.width) * 2.0f
         val inFrontOfCamera = -phoneAlignedDir[2] > 0
 
-        Log.d(Constants.TAG, "$viewportWidth : ${sensorSize.width}")
+        //Log.d(Constants.TAG, "$viewportWidth : ${sensorSize.width}")
 
         updateIcon(xi, yi, inFrontOfCamera)
     }
 
     fun projectMag(from: FloatArray, onto: FloatArray): Float{
-        val mag = dot(from, onto) / (vectorLength2(onto))
-        return vectorLength(vec3(mag * onto[0], mag * onto[1], mag * onto[2]))
+        return dot(from, onto) / (vectorLength(onto))
     }
 
     fun dot(v1: FloatArray, v2: FloatArray): Float{
@@ -217,7 +225,9 @@ class PointerController(val parent: CameraFragment, val icon: View) {
             starRA = 0.0f
         }else {
             starRA = convertRA(model.selectedToView!!.WDS_RA.toFloat())
+            //starRA = convertRA(64508.9f)
         }
+        //starDEC = -16.7f
         starDEC = model.selectedToView?.WDS_DEC?.toFloat() ?: 0.0f
     }
 
