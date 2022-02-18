@@ -21,7 +21,7 @@ import edu.rosehulman.stargaze.databinding.FragmentCameraBinding
 
 class CameraFragment : Fragment() {
     lateinit var binding: FragmentCameraBinding
-    lateinit var pointerController: PointerController
+    var pointerController: PointerController? = null
     private lateinit var cameraProviderFuture : ListenableFuture<ProcessCameraProvider>
 
     override fun onCreateView(
@@ -31,17 +31,7 @@ class CameraFragment : Fragment() {
     ): View? {
         binding = FragmentCameraBinding.inflate(inflater, container, false)
 
-        checkPermissions()
-
-        if(checkCameraHardware(requireContext())) {
-            cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
-            cameraProviderFuture.addListener(Runnable {
-                val cameraProvider = cameraProviderFuture.get()
-                bindPreview(cameraProvider)
-            }, ContextCompat.getMainExecutor(requireContext()))
-        }
-
-        pointerController = PointerController(this, binding.icon)
+        attemptStart()
 
         return binding.root
     }
@@ -59,6 +49,22 @@ class CameraFragment : Fragment() {
         var camera = cameraProvider.bindToLifecycle(activity as LifecycleOwner, cameraSelector, preview)
     }
 
+    fun attemptStart(){
+        if(!checkPermissions()){
+            return
+        }
+
+        if(checkCameraHardware(requireContext())) {
+            cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+            cameraProviderFuture.addListener(Runnable {
+                val cameraProvider = cameraProviderFuture.get()
+                bindPreview(cameraProvider)
+            }, ContextCompat.getMainExecutor(requireContext()))
+        }
+
+        pointerController = PointerController(this, binding.icon)
+    }
+
     private fun checkCameraHardware(context: Context): Boolean {
         return context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)
     }
@@ -72,7 +78,7 @@ class CameraFragment : Fragment() {
         }
     }
 
-    private fun checkPermissions() {
+    private fun checkPermissions(): Boolean{
         // Check to see if we already have permissions
         if (ContextCompat
                 .checkSelfPermission(
@@ -82,11 +88,11 @@ class CameraFragment : Fragment() {
         ) {
             // If we do not, request them from the user
             Log.d(Constants.TAG, "Requesting permission")
-            ActivityCompat.requestPermissions(
-                requireActivity(),
+            requestPermissions(
                 arrayOf(android.Manifest.permission.CAMERA),
                 PERMS.PERM_CAMERA.ordinal
             )
+            return false
         }
 
         if (ContextCompat
@@ -97,35 +103,40 @@ class CameraFragment : Fragment() {
         ) {
             // If we do not, request them from the user
             Log.d(Constants.TAG, "Requesting permission")
-            ActivityCompat.requestPermissions(
-                requireActivity(),
+            requestPermissions(
                 arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION),
                 PERMS.PERM_GPS.ordinal
             )
+            return false
         }
         val courseLocPerm = PermissionManager(this, PERMS.PERM_COURSE_LOC.ordinal, Manifest.permission.ACCESS_COARSE_LOCATION)
         val fineLocPerm = PermissionManager(this, PERMS.PERM_FINE_LOC.ordinal, Manifest.permission.ACCESS_FINE_LOCATION)
         if(!courseLocPerm.checkPermissions()){
             Log.d(Constants.TAG, "Requesting permission")
             courseLocPerm.requestPermissions()
+            return false
         }
         if(!fineLocPerm.checkPermissions()){
             Log.d(Constants.TAG, "Requesting permission")
             fineLocPerm.requestPermissions()
+            return false
         }
+        return true
     }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>, grantResults: IntArray
     ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        //super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        Log.d(Constants.TAG, "PERM RESULT")
         when (requestCode) {
             PERMS.PERM_CAMERA.ordinal -> {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted
                     Log.d(Constants.TAG, "Permission granted")
+                    attemptStart()
                 } else {
                     // permission denied
                     findNavController().navigate(R.id.navigation_user)
@@ -136,6 +147,7 @@ class CameraFragment : Fragment() {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted
                     Log.d(Constants.TAG, "Permission granted")
+                    attemptStart()
                 } else {
                     // permission denied
                     findNavController().navigate(R.id.navigation_user)
@@ -145,6 +157,7 @@ class CameraFragment : Fragment() {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted
                     Log.d(Constants.TAG, "Permission granted")
+                    attemptStart()
                 } else {
                     // permission denied
                     findNavController().navigate(R.id.navigation_user)
@@ -154,6 +167,7 @@ class CameraFragment : Fragment() {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted
                     Log.d(Constants.TAG, "Permission granted")
+                    attemptStart()
                 } else {
                     // permission denied
                     findNavController().navigate(R.id.navigation_user)
@@ -165,12 +179,12 @@ class CameraFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        pointerController.sensorFusionManager.unregister()
+        pointerController?.sensorFusionManager?.unregister()
     }
 
     override fun onResume() {
         super.onResume()
-        pointerController.sensorFusionManager.register()
+        pointerController?.sensorFusionManager?.register()
     }
 
 }

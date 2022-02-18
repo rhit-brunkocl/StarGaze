@@ -24,6 +24,7 @@ import edu.rosehulman.stargaze.databinding.ActivityMainBinding
 import edu.rosehulman.stargaze.models.StarAdapter
 import edu.rosehulman.stargaze.models.StarViewModel
 import edu.rosehulman.stargaze.models.UserViewModel
+import edu.rosehulman.stargaze.ui.Camera.CameraFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -116,4 +117,5 @@ class MainActivity : AppCompatActivity() {
             .build()
         signinLauncher.launch(signinIntent)
     }
+
 }

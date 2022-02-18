@@ -14,8 +14,7 @@ class PermissionManager(val parent: CameraFragment, val permissionID: Int = 42, 
     }
 
     fun requestPermissions() {
-        ActivityCompat.requestPermissions(
-            parent.requireActivity(),
+        parent.requestPermissions(
             arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
             permissionID
         )
