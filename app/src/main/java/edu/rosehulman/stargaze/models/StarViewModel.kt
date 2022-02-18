@@ -19,26 +19,25 @@ class StarViewModel : ViewModel() {
     val subscriptions = HashMap<String, ListenerRegistration>()
     var criteria = SearchCriteria()
     init {
-        for(i in 0 until 10){
-            loadStars(i, i+1)
-            sleep(1000)
-        }
+        loadStars(0, 1400, 1)
     }
 
-    fun loadStars(begin: Int, end: Int){
-        for (i in begin until end){
-            Firebase.firestore.collection("StarDatabase")
-                .orderBy("id")
-                .whereLessThan("id", 1400+i*1400)
-                .whereGreaterThanOrEqualTo("id", 0+i*1400)
-                .get()
-                .addOnSuccessListener { result ->
-                    for (document in result) {
-                        addStar(document.toObject(Star::class.java))
-                    }
-                    Log.d("tag", "${all_stars.size} stars in all stars")
+    fun loadStars(begin: Int, end: Int, loopNum: Int){
+        Firebase.firestore.collection("StarDatabase")
+            .orderBy("id")
+            .whereLessThan("id", end)
+            .whereGreaterThanOrEqualTo("id", begin)
+            .get()
+            .addOnSuccessListener { result ->
+                Log.d("tag", "${result.size()} docs")
+                for (document in result) {
+                    addStar(document.toObject(Star::class.java))
                 }
-        }
+                if(loopNum < 100) {
+                    loadStars(end, loopNum * 1400, loopNum + 1)
+                }
+                Log.d("tag", "${all_stars.size} stars in all stars")
+            }
     }
     fun addStar(star: Star){
         all_stars.add(star)
