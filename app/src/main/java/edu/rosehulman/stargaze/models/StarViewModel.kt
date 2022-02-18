@@ -1,15 +1,13 @@
 package edu.rosehulman.stargaze.models
+import android.app.Activity
+import android.database.CursorWindow
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ListenerRegistration
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import kotlin.collections.ArrayList
+import java.lang.Thread.sleep
+
 
 class StarViewModel : ViewModel() {
     var results = ArrayList<Star>()
@@ -21,7 +19,14 @@ class StarViewModel : ViewModel() {
     val subscriptions = HashMap<String, ListenerRegistration>()
     var criteria = SearchCriteria()
     init {
-        for (i in 0 until 100){
+        for(i in 0 until 10){
+            loadStars(i, i+1)
+            sleep(1000)
+        }
+    }
+
+    fun loadStars(begin: Int, end: Int){
+        for (i in begin until end){
             Firebase.firestore.collection("StarDatabase")
                 .orderBy("id")
                 .whereLessThan("id", 1400+i*1400)
