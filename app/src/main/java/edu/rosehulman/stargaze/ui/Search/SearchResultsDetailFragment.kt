@@ -34,7 +34,7 @@ class SearchResultsDetailFragment :Fragment() {
 
     fun setUpButtons() {
         binding.cameraFab.setOnClickListener{
-            model.selectedToView.add(model.getCurStar())
+            model.selectedToView = model.getCurStar()
             if(model.curUser.settings.fav){
                 model.favoriteStar(model.getCurStar())
             }

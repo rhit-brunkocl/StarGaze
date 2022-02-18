@@ -1,5 +1,6 @@
 package edu.rosehulman.stargaze
 
+import android.hardware.SensorEvent
 import android.os.Bundle
 import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -23,6 +24,7 @@ import edu.rosehulman.stargaze.databinding.ActivityMainBinding
 import edu.rosehulman.stargaze.models.StarAdapter
 import edu.rosehulman.stargaze.models.StarViewModel
 import edu.rosehulman.stargaze.models.UserViewModel
+import edu.rosehulman.stargaze.ui.Camera.CameraFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -115,4 +117,5 @@ class MainActivity : AppCompatActivity() {
             .build()
         signinLauncher.launch(signinIntent)
     }
+
 }
